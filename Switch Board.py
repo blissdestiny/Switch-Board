@@ -51,6 +51,7 @@ def load_text_from_file():
             switch_text() # Вызываем функцию переключения языка после загрузки текста
 
 root = tk.Tk()
+root.geometry("480x400")
 root.title("Switch Board")
 
 input_label = tk.Label(root, text="Ведите текст:")

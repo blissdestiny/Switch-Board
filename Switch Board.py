@@ -51,28 +51,69 @@ def load_text_from_file():
             switch_text() # Вызываем функцию переключения языка после загрузки текста
 
 root = tk.Tk()
-root.title("switch Board")
+root.title("Switch Board")
 
-input_label = tk.Label(root, text="Enter text:")
+input_label = tk.Label(root, text="Ведите текст:")
 input_label.pack()
 
 input_entry = tk.Text(root, height=5, width=50)
 input_entry.pack()
 
-output_label = tk.Label(root, text="Switched text:")
+output_label = tk.Label(root, text="Изменённый текст:")
 output_label.pack()
 
 output_text = tk.Text(root, height=5, width=50)
 output_text.pack()
 
-save_button = tk.Button(root, text="Save Text", command=save_text_to_file)
+save_button = tk.Button(root, text="Сохранить файл", command=save_text_to_file)
 save_button.pack()
 
-load_button = tk.Button(root, text="Load Text", command=load_text_from_file)
+load_button = tk.Button(root, text="Загрузить файл", command=load_text_from_file)
 load_button.pack()
+
+def copy_text():
+    root.clipboard_clear()
+    root.clipboard_append(output_text.get("1.0", tk.END))
+
+def paste_text():
+    input_entry.insert(tk.END, root.clipboard_get())
+
+def clear_text():
+    input_entry.delete("1.0", tk.END)
+    output_text.delete("1.0", tk.END)
+
+clear_button = tk.Button(root, text="Очистить всё", command=clear_text)
+clear_button.pack()
+
+
+copy_button = tk.Button(root, text="Скопировать текст", command=copy_text)
+copy_button.pack()
+
+paste_button = tk.Button(root, text="Вставить текст", command=paste_text)
+paste_button.pack()
+
+root.configure(bg="#C9F2FF")  # Нежно-голубой цвет фона
+
+input_label.configure(bg="#C9F2FF")  # Нежно-голубой цвет фона для метки ввода
+input_entry.configure(bg="white")  # Белый цвет фона для области ввода
+
+output_label.configure(bg="#C9F2FF")  # Нежно-голубой цвет фона для метки вывода
+output_text.configure(bg="white")  # Белый цвет фона для области вывода
+
+clear_button.configure(bg="#FFC0CB")  # Розоватый цвет кнопки очистки текста
+
+save_button.configure(bg="#90EE90") # Зеленоватый цвет кнопки сохранения текста
+
+load_button.configure(bg="#FFDAB9") # Оранжевый цвет кнопки загрузки текста
+
+copy_button.configure(bg="#87CEEB")  # Светло-голубой цвет кнопки копирования текста
+
+paste_button.configure(bg="#87CEEB")  # Светло-голубой цвет кнопки вставки текста
+
 
 switch_text() # Вызываем функцию переключения языка после загрузки текста из файла
 
 root.bind("<Key>", switch_text)
 
 root.mainloop()
+
